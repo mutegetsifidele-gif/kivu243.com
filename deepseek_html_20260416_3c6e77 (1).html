@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>KIVU243 | Modern Style & Electronics</title>
+  <!-- Google Fonts + Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fafbfc;
+      color: #1e2a3a;
+      scroll-behavior: smooth;
+    }
+
+    /* container utility */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* header & nav */
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(0px);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 18px 0;
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0b2b44, #1e6f5c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #2c7a6e;
+      display: block;
+      letter-spacing: normal;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #1f3b4c;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+    .nav-links a:hover {
+      color: #1e6f5c;
+    }
+    .cart-icon {
+      position: relative;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #1f3b4c;
+    }
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: #e76f51;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border-radius: 30px;
+      padding: 2px 6px;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    /* mobile menu */
+    .menu-toggle {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* hero section */
+    .hero {
+      background: linear-gradient(105deg, #eef2f5 0%, #ffffff 100%);
+      padding: 70px 0 60px;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-text {
+      flex: 1;
+    }
+    .hero-text h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #0f2c3b;
+    }
+    .hero-text p {
+      font-size: 1.2rem;
+      margin: 20px 0 28px;
+      color: #4a627a;
+    }
+    .btn-primary {
+      background: #1e6f5c;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .btn-primary:hover {
+      background: #0f5444;
+      transform: translateY(-2px);
+    }
+    .hero-img {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-img i {
+      font-size: 12rem;
+      color: #cbdde6;
+    }
+
+    /* categories / featured section */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 56px 0 24px 0;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: #1e6f5c;
+      border-radius: 4px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 32px;
+      margin: 32px 0 40px;
+    }
+    .product-card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+      border: 1px solid #eef2f2;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+      border-color: #d0e2e0;
+    }
+    .product-img {
+      background: #f4f8fa;
+      padding: 32px 0;
+      text-align: center;
+      font-size: 3rem;
+      color: #2c7a6e;
+    }
+    .product-info {
+      padding: 20px 20px 24px;
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    .product-category {
+      font-size: 0.8rem;
+      color: #6c86a3;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .product-price {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #1e6f5c;
+      margin: 12px 0;
+    }
+    .add-to-cart {
+      width: 100%;
+      background: #1f3b4c;
+      border: none;
+      padding: 10px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .add-to-cart:hover {
+      background: #0f2c3b;
+    }
+
+    /* cart sidebar */
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(3px);
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.2s;
+    }
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 420px;
+      max-width: 90vw;
+      height: 100%;
+      background: white;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+      z-index: 1001;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+    .cart-sidebar.open {
+      right: 0;
+    }
+    .cart-overlay.open {
+      visibility: visible;
+      opacity: 1;
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #eef2f2;
+      padding-bottom: 16px;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin: 20px 0;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #edf2f4;
+      padding: 8px 0;
+    }
+    .cart-total {
+      font-weight: 800;
+      font-size: 1.3rem;
+      border-top: 2px solid #eef2f2;
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+    .checkout-btn {
+      background: #1e6f5c;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 40px;
+      font-weight: bold;
+      margin-top: 16px;
+      cursor: pointer;
+    }
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .empty-cart-msg {
+      text-align: center;
+      color: #7f8c8d;
+      margin-top: 40px;
+    }
+
+    footer {
+      background: #0d2c3b;
+      color: #cfdfe9;
+      margin-top: 80px;
+      padding: 48px 0 24px;
+    }
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .footer-col p {
+      margin-top: 12px;
+      max-width: 260px;
+    }
+    .social-icons i {
+      font-size: 1.4rem;
+      margin-right: 16px;
+      color: #b9d8d0;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .copyright {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 0.8rem;
+      border-top: 1px solid #2c4b5a;
+      padding-top: 24px;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .contact-detail i {
+      width: 24px;
+      color: #b9d8d0;
+    }
+
+    @media (max-width: 850px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 0;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero-text h2 {
+        font-size: 2.2rem;
+      }
+      .container {
+        padding: 0 24px;
+      }
+    }
+    @media (max-width: 550px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-img i {
+        font-size: 7rem;
+      }
+    }
+    button {
+      background: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="container nav-container">
+    <div class="logo">
+      <h1>KIVU243 <span>lifestyle & tech</span></h1>
+    </div>
+    <div class="menu-toggle" id="mobileMenuBtn">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#clothing">Clothing</a></li>
+      <li><a href="#electronics">Electronics</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="cart-icon" id="cartIconBtn">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <h2>Elevate your everyday<br>Style meets innovation</h2>
+      <p>Men's & women's fashion, premium shoes, latest electronics — phones, chargers, earpads, vaselines & more. Discover quality at KIVU243.</p>
+      <button class="btn-primary" id="shopNowBtn">Shop Now →</button>
+    </div>
+    <div class="hero-img">
+      <i class="fas fa-shopping-basket"></i>
+    </div>
+  </div>
+</header>
+
+<main class="container" id="products">
+  <div class="section-title">🔥 Trending now</div>
+  <div class="products-grid" id="productsGrid"></div>
+
+  <div class="section-title" id="clothing">👕 Clothing & Shoes</div>
+  <div class="products-grid" id="clothingGrid"></div>
+
+  <div class="section-title" id="electronics">📱 Electronics & Accessories</div>
+  <div class="products-grid" id="electronicsGrid"></div>
+</main>
+
+<!-- cart sidebar -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Your Cart <i class="fas fa-bag-shopping"></i></h3>
+    <button class="close-cart" id="closeCartBtn">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItemsList">
+    <div class="empty-cart-msg">Cart is empty</div>
+  </div>
+  <div class="cart-total" id="cartTotalPrice">Total: $0.00</div>
+  <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+</div>
+
+<footer id="contact">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <h3>KIVU243</h3>
+      <p>Authentic fashion, electronics & personal care. Delivered with care.</p>
+      <div class="social-icons">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-facebook"></i>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <p>About Us</p>
+      <p>Shipping & Returns</p>
+      <p>Privacy Policy</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="contact-detail">
+        <i class="fas fa-envelope"></i>
+        <span>hello@kivu243.com</span>
+      </div>
+      <div class="contact-detail">
+        <i class="fas fa-phone-alt"></i>
+        <span><strong>+250 795 880 462</strong></span>
+      </div>
+      <div class="contact-detail">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Kigali, Rwanda</span>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>© 2025 KIVU243 — Modern essentials. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // ---------- PRODUCT DATABASE (clothes, shoes, electronics, vaselines, chargers, earpads etc) ----------
+  const products = [
+    // men & women clothing
+    { id: 1, name: "Classic Denim Jacket", category: "Men's Clothing", price: 79.99, type: "clothing", icon: "fas fa-tshirt" },
+    { id: 2, name: "Floral Summer Dress", category: "Women's Clothing", price: 59.99, type: "clothing", icon: "fas fa-female" },
+    { id: 3, name: "Cotton Blend Hoodie", category: "Unisex", price: 49.99, type: "clothing", icon: "fas fa-hoodie" },
+    { id: 4, name: "Slim Fit Chinos", category: "Men's Pants", price: 64.99, type: "clothing", icon: "fas fa-tshirt" },
+    // shoes
+    { id: 5, name: "Airwalk Sneakers", category: "Men's Shoes", price: 89.99, type: "shoes", icon: "fas fa-shoe-prints" },
+    { id: 6, name: "Elegance Heels", category: "Women's Shoes", price: 99.99, type: "shoes", icon: "fas fa-high-heel" },
+    { id: 7, name: "Running Trainers", category: "Unisex Sport", price: 74.99, type: "shoes", icon: "fas fa-running" },
+    // electronics
+    { id: 8, name: "5G Smartphone Pro", category: "Phones", price: 699.99, type: "electronics", icon: "fas fa-mobile-alt" },
+    { id: 9, name: "Fast Charger 65W", category: "Chargers", price: 29.99, type: "electronics", icon: "fas fa-bolt" },
+    { id: 10, name: "Noise Cancelling Earpads", category: "Earpads", price: 49.99, type: "electronics", icon: "fas fa-headphones" },
+    { id: 11, name: "Wireless Charging Pad", category: "Chargers", price: 24.99, type: "electronics", icon: "fas fa-charging-station" },
+    // vaselines & personal care
+    { id: 12, name: "Petroleum Jelly (Vaseline)", category: "Skin Care", price: 6.99, type: "care", icon: "fas fa-hand-holding-heart" },
+    { id: 13, name: "Cocoa Glow Vaseline", category: "Body Care", price: 8.49, type: "care", icon: "fas fa-smile" },
+    { id: 14, name: "Premium Lip Balm Set", category: "Care", price: 12.99, type: "care", icon: "fas fa-kiss" },
+    { id: 15, name: "Bluetooth Earpads Pro", category: "Earpads", price: 79.99, type: "electronics", icon: "fas fa-headphones" }
+  ];
+
+  // cart state
+  let cart = [];   // each item {id, name, price, quantity}
+
+  // helper update cart UI, count, total
+  function updateCartUI() {
+    const cartCountSpan = document.getElementById('cartCount');
+    const cartItemsContainer = document.getElementById('cartItemsList');
+    const cartTotalSpan = document.getElementById('cartTotalPrice');
+    
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountSpan.innerText = totalItems;
+    
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = '<div class="empty-cart-msg">🛒 Your cart is empty</div>';
+      cartTotalSpan.innerText = `Total: $0.00`;
+      return;
+    }
+    
+    let cartHtml = '';
+    let totalPrice = 0;
+    cart.forEach(item => {
+      const prod = products.find(p => p.id === item.id);
+      if(prod) {
+        const itemTotal = prod.price * item.quantity;
+        totalPrice += itemTotal;
+        cartHtml += `
+          <div class="cart-item">
+            <div><strong>${prod.name}</strong><br><small>$${prod.price.toFixed(2)}</small> x ${item.quantity}</div>
+            <div>
+              <button class="cart-qty-btn" data-id="${item.id}" data-op="dec">-</button>
+              <span style="margin:0 6px;">${item.quantity}</span>
+              <button class="cart-qty-btn" data-id="${item.id}" data-op="inc">+</button>
+              <button class="cart-remove" data-id="${item.id}" style="margin-left:10px;color:#e76f51;"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          </div>
+        `;
+      }
+    });
+    cartItemsContainer.innerHTML = cartHtml;
+    cartTotalSpan.innerText = `Total: $${totalPrice.toFixed(2)}`;
+    
+    // attach cart controls
+    document.querySelectorAll('.cart-qty-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.dataset.id);
+        const op = btn.dataset.op;
+        if(op === 'inc') updateQuantity(id, 1);
+        else if(op === 'dec') updateQuantity(id, -1);
+      });
+    });
+    document.querySelectorAll('.cart-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.dataset.id);
+        removeFromCart(id);
+      });
+    });
+  }
+  
+  function updateQuantity(productId, delta) {
+    const idx = cart.findIndex(item => item.id === productId);
+    if(idx !== -1) {
+      const newQty = cart[idx].quantity + delta;
+      if(newQty <= 0) {
+        cart.splice(idx,1);
+      } else {
+        cart[idx].quantity = newQty;
+      }
+      updateCartUI();
+      saveCartToLocal();
+    }
+  }
+  
+  function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartUI();
+    saveCartToLocal();
+  }
+  
+  function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if(!product) return;
+    const existing = cart.find(item => item.id === productId);
+    if(existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ id: productId, name: product.name, price: product.price, quantity: 1 });
+    }
+    updateCartUI();
+    saveCartToLocal();
+    // optional: show mini feedback
+    const btn = document.querySelector(`.add-btn-${productId}`);
+    if(btn) {
+      btn.innerHTML = '<i class="fas fa-check"></i> Added';
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-cart-plus"></i> Add to cart';
+      }, 800);
+    }
+  }
+  
+  function saveCartToLocal() {
+    localStorage.setItem('kivu243_cart', JSON.stringify(cart));
+  }
+  function loadCartFromLocal() {
+    const saved = localStorage.getItem('kivu243_cart');
+    if(saved) {
+      try {
+        cart = JSON.parse(saved);
+        updateCartUI();
+      } catch(e) {}
+    }
+  }
+  
+  // render product grids (grouped)
+  function renderAllProducts() {
+    const mainGrid = document.getElementById('productsGrid');
+    const clothingShoesGrid = document.getElementById('clothingGrid');
+    const electronicsGrid = document.getElementById('electronicsGrid');
+    
+    // trending: mix of best items (first 6)
+    const trendingItems = products.slice(0,6);
+    mainGrid.innerHTML = trendingItems.map(prod => productCardHTML(prod)).join('');
+    
+    // clothing + shoes (type clothing OR shoes)
+    const clothesAndShoes = products.filter(p => p.type === 'clothing' || p.type === 'shoes');
+    clothingShoesGrid.innerHTML = clothesAndShoes.map(prod => productCardHTML(prod)).join('');
+    
+    // electronics + care (phones, chargers, earpads, vaselines)
+    const electroCare = products.filter(p => p.type === 'electronics' || p.type === 'care');
+    electronicsGrid.innerHTML = electroCare.map(prod => productCardHTML(prod)).join('');
+    
+    // attach all add to cart listeners after rendering
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.dataset.id);
+        addToCart(id);
+      });
+    });
+  }
+  
+  function productCardHTML(product) {
+    return `
+      <div class="product-card">
+        <div class="product-img">
+          <i class="${product.icon}"></i>
+        </div>
+        <div class="product-info">
+          <div class="product-title">${product.name}</div>
+          <div class="product-category">${product.category}</div>
+          <div class="product-price">$${product.price.toFixed(2)}</div>
+          <button class="add-to-cart add-to-cart-btn add-btn-${product.id}" data-id="${product.id}"><i class="fas fa-cart-plus"></i> Add to cart</button>
+        </div>
+      </div>
+    `;
+  }
+  
+  // ---- cart sidebar toggles ----
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartSidebar = document.getElementById('cartSidebar');
+  const cartIconBtn = document.getElementById('cartIconBtn');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+  const shopNowBtn = document.getElementById('shopNowBtn');
+  
+  function openCart() {
+    cartOverlay.classList.add('open');
+    cartSidebar.classList.add('open');
+  }
+  function closeCart() {
+    cartOverlay.classList.remove('open');
+    cartSidebar.classList.remove('open');
+  }
+  cartIconBtn.addEventListener('click', openCart);
+  closeCartBtn.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+  
+  // checkout alert
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    if(cart.length === 0) {
+      alert("Your cart is empty. Add some awesome products first!");
+    } else {
+      alert(`✨ Thanks for shopping at KIVU243! Total: ${document.getElementById('cartTotalPrice').innerText}. Demo order placed.`);
+      cart = [];
+      updateCartUI();
+      saveCartToLocal();
+      closeCart();
+    }
+  });
+  
+  // mobile menu toggle
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  mobileBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  
+  // smooth scroll shop now
+  shopNowBtn.addEventListener('click', () => {
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+  });
+  
+  // navigation smooth & active mobile close
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if(link.getAttribute('href').startsWith('#')) {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElem = document.getElementById(targetId);
+        if(targetElem) targetElem.scrollIntoView({ behavior: 'smooth' });
+        else if(targetId === 'products') document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        else if(targetId === 'clothing') document.getElementById('clothing').scrollIntoView({ behavior: 'smooth' });
+        else if(targetId === 'electronics') document.getElementById('electronics').scrollIntoView({ behavior: 'smooth' });
+        else if(targetId === 'contact') document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        else document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+      }
+      if(window.innerWidth <= 850) navLinks.classList.remove('active');
+    });
+  });
+  
+  // init everything
+  function init() {
+    renderAllProducts();
+    loadCartFromLocal();
+  }
+  init();
+</script>
+</body>
+</html>
